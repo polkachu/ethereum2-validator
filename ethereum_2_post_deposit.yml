@@ -9,5 +9,5 @@
         upgrade: dist
         update_cache: true
   roles:
-    - ethereum_beacon_node
-    - ethereum_beacon_validator
+    - beacon_node
+    - beacon_validator

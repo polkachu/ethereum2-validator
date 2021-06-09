@@ -1,0 +1,16 @@
+[ethereum1]
+10.10.10.1
+
+[ethereum2]
+10.10.10.2
+
+[ethereum:children]
+ethereum1
+ethereum2
+
+[all:vars]
+ansible_user=ansible
+ansible_port=22
+ansible_ssh_private_key_file="~/.ssh/id_rsa"
+geth_network_tag=goerli   # mainnet
+beacon_network_tag=pyrmont   # mainnet

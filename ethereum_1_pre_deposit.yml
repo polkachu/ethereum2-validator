@@ -9,9 +9,8 @@
         upgrade: dist
         update_cache: true
   roles:
-    - ethereum_prepare
-    # - ethereum_geth
-    # - node_exporter
-    # - process_exporter
-    # - ethereum_deposit_client
-    # - ethereum_lighthouse
+    - prepare
+    - geth
+    - node_exporter
+    - process_exporter
+    - lighthouse
