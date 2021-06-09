@@ -14,6 +14,8 @@ cp inventory.sample inventory
 
 ## Step 1: Setup before deposit keys
 
+Run the first playbook. Make sure that you have adjusted your inventory file. Replace VALIDATOR_TARGET with your host or group.
+
 ```bash
 ansible-playbook -i inventory ethereum_step_1.yml -e "target=VALIDATOR_TARGET"
 ```
@@ -48,11 +50,18 @@ lighthouse --network {{ pyrmont or mainnet }} account validator import --directo
 
 ## Step 3: Set up Lighthouse Beacon node and validator
 
+Run the first playbook. Make sure that you have adjusted your inventory file. Replace VALIDATOR_TARGET with your host or group.
+
 ```bash
 ansible-playbook -i inventory ethereum_step_2.yml -e "target=VALIDATOR_TARGET"
 ```
 
-Helpful Eth2 log file monitoring:
+This will:
+
+1. Install Lighthouse Beacon client
+2. install Lighthouse validator
+
+Helpful Eth2 log file monitoring to make sure everything is working. You might need to wait for a few days before everything is fully synced. Good news is that you have not deposited Eth, so just relex if you find bugs.
 
 ```
 sudo journalctl -fu geth.service
@@ -72,12 +81,29 @@ Understand how to update the client and server software.
 Use htop to monitor resources on the local machine.
 Get familiar with beaconcha.in so you can monitor your validators. They offer alerting (via email — sign up required) and up to 3 POAPs.
 Join the Ethstaker and Lighthouse Discord for important notifications.
-Share any feedback for this guide on Discord, Twitter, or Reddit.
-Help others with their setup on the Ethstaker discord.
-Share this guide using the friend link!
-Tips: somer.eth
 
-## Extra Steps:
+## Extra Steps: Update Geth
 
-update geth
-update lighthouse
+```
+sudo systemctl stop lighthousevalidator
+sudo systemctl stop lighthousebeacon
+sudo systemctl stop geth
+sudo apt update && sudo apt upgrade
+sudo systemctl start geth
+sudo systemctl status geth # <-- Check for errors
+sudo journalctl -fu geth # <-- Monitor
+sudo systemctl start lighthousebeacon
+sudo systemctl status lighthousebeacon # <-- Check for errors
+sudo journalctl -fu lighthousebeacon # <-- Monitor
+sudo systemctl start lighthousevalidator
+sudo systemctl status lighthousevalidator # <-- Check for errors
+sudo journalctl -fu lighthousevalidator # <-- Monitor
+```
+
+## Extra Steps: Update Lighthouse
+
+Update the group_vars file and run the playbook
+
+```bash
+ansible-playbook -i inventory update_lighthouse.yml -e "target=VALIDATOR_TARGET"
+```

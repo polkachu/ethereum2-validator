@@ -19,13 +19,3 @@
     owner: root
     group: root
     mode: 755
-
-- name: Creates lighthouse directory
-  file:
-    path: "/var/lib/lighthouse"
-    state: directory
-    owner: ubuntu
-    group: ubuntu
-    recurse: true
-    mode: 0755
-  changed_when: false

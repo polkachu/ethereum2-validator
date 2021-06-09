@@ -42,3 +42,13 @@
   args:
     executable: /bin/bash
   when: not ufw_status_result.stdout is search("Status.* active")
+
+- name: Creates lighthouse directory
+  file:
+    path: "/var/lib/lighthouse"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    recurse: true
+    mode: 0755
+  changed_when: false
