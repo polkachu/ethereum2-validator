@@ -1,3 +1,44 @@
 ---
-- name: firewall
-  import_tasks: firewall.yml
+- name: install packages
+  apt:
+    name: ufw
+    state: present
+    update_cache: yes
+
+- name: ufw already enabled
+  command: ufw status verbose
+  register: ufw_status_result
+  changed_when: false
+
+- name: Open Go Ethereum (Ethereum 1 Client) port 30303
+  command: ufw allow 30303
+  when:
+    - not ufw_status_result.stdout is search("30303.*ALLOW IN.*Anywhere")
+
+- name: Open Beacon Chain (Ethereum 2 Client Lighthouse) port 9000
+  command: ufw allow 9000
+  when:
+    - not ufw_status_result.stdout is search("9000.*ALLOW IN.*Anywhere")
+
+- name: open Lighthouse metrics port for Prometheus
+  command: ufw allow 5054/tcp
+  when:
+    - not ufw_status_result.stdout is search("5054/tcp.*ALLOW IN.*Anywhere")
+
+- name: open node_exporter port
+  command: ufw allow 9100/tcp
+  when:
+    - not ufw_status_result.stdout is search("9100/tcp.*ALLOW IN.*Anywhere")
+
+- name: open process_exporter port
+  command: ufw allow 9256/tcp
+  when:
+    - not ufw_status_result.stdout is search("9256/tcp.*ALLOW IN.*Anywhere")
+
+- name: enable firewall
+  shell: |
+    set -o pipefail
+    echo "y" | ufw enable
+  args:
+    executable: /bin/bash
+  when: not ufw_status_result.stdout is search("Status.* active")
