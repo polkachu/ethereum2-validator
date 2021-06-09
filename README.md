@@ -4,6 +4,14 @@ This repo is to set up Ethereum 2 Validator with Lighthouse Client. The repo is 
 
 Setting up Ethereum validator is mostly automated, but you still need to generate deposit keys and deposit your ETH in the process. As a result, there are two ansible playbooks: one for before the deposit key generation and the other after.
 
+## Step 0: Make your own invetory file.
+
+Get started with
+
+```
+cp inventory.sample inventory
+```
+
 ## Step 1: Setup before deposit keys
 
 ```bash
