@@ -1,0 +1,48 @@
+---
+- name: Get Go Ethereum PPA
+  apt_repository:
+    repo: "ppa:ethereum/ethereum"
+
+- name: update and upgrade
+  apt:
+    upgrade: dist
+    update_cache: true
+
+- name: update and upgrade
+  apt:
+    name: geth
+    state: present
+    update_cache: yes
+
+- name: Create Goeth user
+  user:
+    name: goeth
+    comment: "Goeth user"
+    shell: /usr/sbin/nologin
+    state: present
+
+- name: Creates Goeth directory
+  file:
+    path: "/var/lib/goethereum"
+    state: directory
+    owner: goeth
+    group: goeth
+    recurse: true
+    mode: 0755
+  changed_when: false
+
+- name: Copy geth service file
+  copy:
+    src: "geth.service"
+    dest: "/etc/systemd/system/geth.service"
+    owner: root
+    group: root
+    mode: 600
+
+- name: start geth service
+  systemd:
+    name: geth
+    state: restarted
+    daemon_reload: true
+    enabled: true
+  changed_when: false

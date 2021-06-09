@@ -1,0 +1,33 @@
+---
+- name: Create lighthousebeacon user
+  user:
+    name: lighthousebeacon
+    comment: "lighthousebeacon user"
+    shell: /usr/sbin/nologin
+    state: present
+
+- name: create beacon folder
+  file:
+    path: "/var/lib/lighthouse/beacon"
+    state: directory
+    owner: lighthousebeacon
+    group: lighthousebeacon
+    recurse: true
+    mode: 0755
+  changed_when: false
+
+- name: Copy lighthousebeacon service file
+  copy:
+    src: "lighthousebeacon.service"
+    dest: "/etc/systemd/system/lighthousebeacon.service"
+    owner: root
+    group: root
+    mode: 600
+
+- name: start lighthousebeacon service
+  systemd:
+    name: lighthousebeacon
+    state: restarted
+    daemon_reload: true
+    enabled: true
+  changed_when: false

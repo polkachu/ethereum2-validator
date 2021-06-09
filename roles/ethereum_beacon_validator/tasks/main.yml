@@ -1,0 +1,33 @@
+---
+- name: Create lighthousevalidator user
+  user:
+    name: lighthousevalidator
+    comment: "lighthousevalidator user"
+    shell: /usr/sbin/nologin
+    state: present
+
+- name: Give lighthousevalidator the ownership of the validator folder
+  file:
+    path: "/var/lib/lighthouse/validators"
+    state: directory
+    owner: lighthousevalidator
+    group: lighthousevalidator
+    recurse: true
+    mode: 0755
+  changed_when: false
+
+- name: Copy lighthousevalidator service file
+  copy:
+    src: "lighthousevalidator.service"
+    dest: "/etc/systemd/system/lighthousevalidator.service"
+    owner: root
+    group: root
+    mode: 600
+
+- name: start lighthousevalidator service
+  systemd:
+    name: lighthousevalidator
+    state: restarted
+    daemon_reload: true
+    enabled: true
+  changed_when: false
