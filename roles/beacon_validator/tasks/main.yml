@@ -17,8 +17,8 @@
   changed_when: false
 
 - name: Copy lighthousevalidator service file
-  copy:
-    src: "lighthousevalidator.service"
+  template:
+    src: "lighthousevalidator.service.j2"
     dest: "/etc/systemd/system/lighthousevalidator.service"
     owner: root
     group: root

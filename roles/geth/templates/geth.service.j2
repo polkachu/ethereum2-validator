@@ -9,7 +9,7 @@ Group=goeth
 Type=simple
 Restart=always
 RestartSec=5
-ExecStart=geth --{{ geth_network_tag }} --http --datadir /var/lib/goethereum
+ExecStart=geth --{{ geth_network_tag }} --http --datadir /var/lib/goethereum --cache 2048 --maxpeers 30
 
 [Install]
 WantedBy=default.target

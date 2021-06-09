@@ -12,5 +12,8 @@ ethereum2
 ansible_user=ansible
 ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
-geth_network_tag=goerli   # mainnet
-beacon_network_tag=pyrmont   # mainnet
+geth_network_tag=goerli
+beacon_network_tag=pyrmont
+
+# geth_network_tag=mainnet
+# beacon_network_tag=mainnet

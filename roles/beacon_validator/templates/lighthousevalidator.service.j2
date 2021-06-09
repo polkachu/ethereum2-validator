@@ -9,7 +9,7 @@ User=lighthousevalidator
 Group=lighthousevalidator
 Restart=always
 RestartSec=5
-ExecStart=/usr/local/bin/lighthouse validator_client --network pyrmont --datadir /var/lib/lighthouse --graffiti "Songhua is here"
+ExecStart=/usr/local/bin/lighthouse validator_client --network {{ beacon_network_tag }} --datadir /var/lib/lighthouse --graffiti "Songhua is here"
 
 [Install]
 WantedBy=multi-user.target

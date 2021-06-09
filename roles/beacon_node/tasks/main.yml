@@ -17,8 +17,8 @@
   changed_when: false
 
 - name: Copy lighthousebeacon service file
-  copy:
-    src: "lighthousebeacon.service"
+  template:
+    src: "lighthousebeacon.service.j2"
     dest: "/etc/systemd/system/lighthousebeacon.service"
     owner: root
     group: root
