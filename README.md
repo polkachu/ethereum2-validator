@@ -23,10 +23,11 @@ ansible-playbook -i inventory ethereum_step_1.yml -e "target=VALIDATOR_TARGET"
 This will:
 
 1. set up firewall
-2. install eth1 client (Geth)
-3. install node exporter
-4. install process exporter
-5. install eth2 lighthouse client
+2. install node exporter
+3. install process exporter
+4. install eth2 lighthouse client
+
+It is assumed that you will get the eth1 client from a third-party such as Infura. A free account should be sufficient.
 
 ## Step 2: Make deposit keys and associate the keys with Lighthouse
 
@@ -39,7 +40,7 @@ This will:
 2. Copy the key files to the validator server using command like this. I assume the ubuntu user here:
 
 ```
-scp -r -P 22 ~/local-path/validator_keys remote-server:/home/ubuntu
+scp -r -P 22 ~/local-path/validator_keys user@remote-server:/home/ubuntu
 ```
 
 3. On the remote server, run command:
@@ -64,7 +65,6 @@ This will:
 Helpful Eth2 log file monitoring to make sure everything is working. You might need to wait for a few days before everything is fully synced. Good news is that you have not deposited Eth, so just relex if you find bugs.
 
 ```
-sudo journalctl -fu geth.service
 sudo journalctl -fu lighthousebeacon.service
 sudo journalctl -fu lighthousevalidator.service
 sudo tail /var/log/syslog -n 100

@@ -14,6 +14,8 @@ ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
 geth_network_tag=goerli
 beacon_network_tag=pyrmont
+eth1_endpoint=https://goerli.infura.io/v3/abcdefg
 
 # geth_network_tag=mainnet
 # beacon_network_tag=mainnet
+# eth1_endpoint=https://mainnet.infura.io/v3/abcdefg

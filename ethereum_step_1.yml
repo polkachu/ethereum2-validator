@@ -10,7 +10,6 @@
         update_cache: true
   roles:
     - prepare
-    - geth
     - node_exporter
     - process_exporter
     - lighthouse
