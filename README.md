@@ -34,16 +34,16 @@ It is assumed that you will get the eth1 client from a third-party such as Infur
 1. Download the deposit key generator from https://github.com/ethereum/eth2.0-deposit-cli/releases. And generate keys. All security measures apply here.
 
 ```
-./deposit new-mnemonic --num_validators <numberofvalidators> --mnemonic_language=english --chain pyrmont
+./deposit new-mnemonic --num_validators <numberofvalidators> --mnemonic_language=english --chain {{ pyrmont or mainnet }}
 ```
 
-2. Copy the key files to the validator server using command like this. I assume the ubuntu user here:
+2. Copy the key files to the validator server using command like this.
 
 ```
-scp -r -P 22 ~/local-path/validator_keys user@remote-server:/home/ubuntu
+scp -r -P 22 ~/local-path/validator_keys user@remote-server:remote-path
 ```
 
-3. On the remote server, run command:
+3. On the remote server, run the command to put the validator keys into a folder that Lighthouse clinet can use.
 
 ```
 lighthouse --network {{ pyrmont or mainnet }} account validator import --directory /home/ubuntu/validator_keys --datadir /var/lib/lighthouse
@@ -51,7 +51,7 @@ lighthouse --network {{ pyrmont or mainnet }} account validator import --directo
 
 ## Step 3: Set up Lighthouse Beacon node and validator
 
-Run the first playbook. Make sure that you have adjusted your inventory file. Replace VALIDATOR_TARGET with your host or group.
+Run the second playbook. Replace VALIDATOR_TARGET with your host or group.
 
 ```bash
 ansible-playbook -i inventory ethereum_step_2.yml -e "target=VALIDATOR_TARGET"
@@ -62,43 +62,24 @@ This will:
 1. Install Lighthouse Beacon client
 2. install Lighthouse validator
 
-Helpful Eth2 log file monitoring to make sure everything is working. You might need to wait for a few days before everything is fully synced. Good news is that you have not deposited Eth, so just relex if you find bugs.
+Helpful Eth2 log file monitoring to make sure everything is working. You might need to wait for a few days before everything is fully synced. Testnet will take longer to sync than the mainnet. Good news is that you have not deposited Eth yet, so just relex if you find bugs.
 
 ```
 sudo journalctl -fu lighthousebeacon.service
 sudo journalctl -fu lighthousevalidator.service
 sudo tail /var/log/syslog -n 100
-geth attach http://127.0.0.1:8545
-eth.syncing
-net.peerCount
 ```
 
 ## Step 4: Make deposit and see it go!
 
-Triple check all key and password backups.
-Reboot your machine and make sure the services come back up.
-Understand how to update the client and server software.
-Use htop to monitor resources on the local machine.
-Get familiar with beaconcha.in so you can monitor your validators. They offer alerting (via email — sign up required) and up to 3 POAPs.
-Join the Ethstaker and Lighthouse Discord for important notifications.
+## Extra Steps
 
-## Extra Steps: Update Geth
-
-```
-sudo systemctl stop lighthousevalidator
-sudo systemctl stop lighthousebeacon
-sudo systemctl stop geth
-sudo apt update && sudo apt upgrade
-sudo systemctl start geth
-sudo systemctl status geth # <-- Check for errors
-sudo journalctl -fu geth # <-- Monitor
-sudo systemctl start lighthousebeacon
-sudo systemctl status lighthousebeacon # <-- Check for errors
-sudo journalctl -fu lighthousebeacon # <-- Monitor
-sudo systemctl start lighthousevalidator
-sudo systemctl status lighthousevalidator # <-- Check for errors
-sudo journalctl -fu lighthousevalidator # <-- Monitor
-```
+- Triple check all key and password backups.
+- Reboot your machine and make sure the services come back up.
+- Understand how to update the client and server software.
+- Use htop to monitor resources on the local machine. I recommend that set up Prometheus and Grafana for monitoring.
+- Get familiar with beaconcha.in so you can monitor your validators. They offer alerting (via email — sign up required) and up to 3 POAPs.
+- Join the Ethstaker and Lighthouse Discord for important notifications.
 
 ## Extra Steps: Update Lighthouse
 

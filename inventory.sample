@@ -1,14 +1,14 @@
-[ethereum1]
+[test]
 10.10.10.1
 
-[ethereum2]
+[production]
 10.10.10.2
 
 [ethereum:children]
-ethereum1
-ethereum2
+test
+production
 
-[all:vars]
+[test:vars]
 ansible_user=ansible
 ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
@@ -16,6 +16,10 @@ geth_network_tag=goerli
 beacon_network_tag=pyrmont
 eth1_endpoint=https://goerli.infura.io/v3/abcdefg
 
-# geth_network_tag=mainnet
-# beacon_network_tag=mainnet
-# eth1_endpoint=https://mainnet.infura.io/v3/abcdefg
+[production:vars]
+ansible_user=ansible
+ansible_port=22
+ansible_ssh_private_key_file="~/.ssh/id_rsa"
+geth_network_tag=mainnet
+beacon_network_tag=mainnet
+eth1_endpoint=https://mainnet.infura.io/v3/abcdefg
