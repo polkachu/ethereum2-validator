@@ -9,6 +9,7 @@ test
 production
 
 [test:vars]
+hostname=ethtest
 ansible_user=ansible
 ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
@@ -17,9 +18,13 @@ beacon_network_tag=pyrmont
 eth1_endpoint=https://goerli.infura.io/v3/abcdefg
 
 [production:vars]
+hostname=ethprod
 ansible_user=ansible
 ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
 geth_network_tag=mainnet
 beacon_network_tag=mainnet
 eth1_endpoint=https://mainnet.infura.io/v3/abcdefg
+
+[all:vars]
+log_monitor=10.10.10.3
