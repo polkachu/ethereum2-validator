@@ -9,7 +9,7 @@ User=lighthousebeacon
 Group=lighthousebeacon
 Restart=always
 RestartSec=5
-ExecStart=/usr/local/bin/lighthouse beacon_node --datadir /var/lib/lighthouse --network {{beacon_network_tag}} --staking --eth1-endpoints {{ eth1_endpoint }} --metrics --metrics-address=0.0.0.0 --metrics-port=5054
+ExecStart=/usr/local/bin/lighthouse beacon_node --datadir /var/lib/lighthouse --network {{beacon_network_tag}} --staking --validator-monitor-auto --eth1-endpoints {{ eth1_endpoint }} --eth1-blocks-per-log-query 200 --metrics --metrics-address=0.0.0.0 --metrics-port=5054
 
 [Install]
 WantedBy=multi-user.target

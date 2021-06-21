@@ -9,8 +9,8 @@
         upgrade: dist
         update_cache: true
   roles:
-    # - prepare
-    # - node_exporter
-    # - process_exporter
+    - prepare
+    - node_exporter
+    - process_exporter
     - promtail
-    # - lighthouse
+    - lighthouse
