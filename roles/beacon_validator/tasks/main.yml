@@ -2,13 +2,13 @@
 - name: Create lighthousevalidator user
   user:
     name: lighthousevalidator
-    comment: "lighthousevalidator user"
+    comment: 'lighthousevalidator user'
     shell: /usr/sbin/nologin
     state: present
 
 - name: Give lighthousevalidator the ownership of the validator folder
   file:
-    path: "/var/lib/lighthouse/validators"
+    path: '/var/lib/lighthouse/validators'
     state: directory
     owner: lighthousevalidator
     group: lighthousevalidator
@@ -18,8 +18,8 @@
 
 - name: Copy lighthousevalidator service file
   template:
-    src: "lighthousevalidator.service.j2"
-    dest: "/etc/systemd/system/lighthousevalidator.service"
+    src: 'lighthousevalidator.service.j2'
+    dest: '/etc/systemd/system/lighthousevalidator.service'
     owner: root
     group: root
     mode: 600

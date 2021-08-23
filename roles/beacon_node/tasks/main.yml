@@ -2,13 +2,13 @@
 - name: Create lighthousebeacon user
   user:
     name: lighthousebeacon
-    comment: "lighthousebeacon user"
+    comment: 'lighthousebeacon user'
     shell: /usr/sbin/nologin
     state: present
 
 - name: create beacon folder
   file:
-    path: "/var/lib/lighthouse/beacon"
+    path: '/var/lib/lighthouse/beacon'
     state: directory
     owner: lighthousebeacon
     group: lighthousebeacon
@@ -18,8 +18,8 @@
 
 - name: Copy lighthousebeacon service file
   template:
-    src: "lighthousebeacon.service.j2"
-    dest: "/etc/systemd/system/lighthousebeacon.service"
+    src: 'lighthousebeacon.service.j2'
+    dest: '/etc/systemd/system/lighthousebeacon.service'
     owner: root
     group: root
     mode: 600
