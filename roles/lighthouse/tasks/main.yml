@@ -1,20 +1,20 @@
 ---
 - name: download Lighthouse
   get_url:
-    url: "https://github.com/sigp/lighthouse/releases/download/v{{ lighthouse_version }}/lighthouse-v{{ lighthouse_version }}-x86_64-unknown-linux-gnu-portable.tar.gz"
-    dest: "/tmp/lighthouse-v{{ lighthouse_version }}-x86_64-unknown-linux-gnu-portable.tar.gz"
-    mode: "0700"
+    url: 'https://github.com/sigp/lighthouse/releases/download/v{{ lighthouse_version }}/lighthouse-v{{ lighthouse_version }}-x86_64-unknown-linux-gnu-portable.tar.gz'
+    dest: '/tmp/lighthouse-v{{ lighthouse_version }}-x86_64-unknown-linux-gnu-portable.tar.gz'
+    mode: '0700'
 
 - name: unarchive Lighthouse
   unarchive:
-    src: "/tmp/lighthouse-v{{ lighthouse_version }}-x86_64-unknown-linux-gnu-portable.tar.gz"
+    src: '/tmp/lighthouse-v{{ lighthouse_version }}-x86_64-unknown-linux-gnu-portable.tar.gz'
     remote_src: yes
-    dest: "/tmp"
+    dest: '/tmp'
 
 - name: Copy binary files
   copy:
-    src: "/tmp/lighthouse"
-    dest: "/usr/local/bin/"
+    src: '/tmp/lighthouse'
+    dest: '/usr/local/bin/'
     remote_src: true
     owner: root
     group: root
