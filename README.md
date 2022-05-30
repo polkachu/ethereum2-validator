@@ -4,7 +4,7 @@ This repo is to set up Ethereum 2 Validator with Lighthouse Client. The repo is 
 
 Setting up Ethereum validator is mostly automated, but you still need to generate deposit keys and deposit your ETH in the process. As a result, there are two ansible playbooks: one for before the deposit key generation and the other after.
 
-## Step 0: Make your own invetory file.
+## Step 0: Make your own inventory file.
 
 Get started with
 
@@ -23,9 +23,8 @@ ansible-playbook -i inventory ethereum_step_1.yml -e "target=VALIDATOR_TARGET"
 This will:
 
 1. set up firewall
-2. install node exporter
-3. install process exporter
-4. install eth2 lighthouse client
+1. install node exporter
+1. install eth2 lighthouse client
 
 It is assumed that you will get the eth1 client from a third-party such as Infura. A free account should be sufficient.
 
@@ -43,7 +42,7 @@ It is assumed that you will get the eth1 client from a third-party such as Infur
 scp -r -P 22 ~/local-path/validator_keys user@remote-server:remote-path
 ```
 
-3. On the remote server, run the command to put the validator keys into a folder that Lighthouse clinet can use.
+3. On the remote server, run the command to put the validator keys into a folder that Lighthouse client can use.
 
 ```
 lighthouse --network {{ pyrmont or mainnet }} account validator import --directory /home/ubuntu/validator_keys --datadir /var/lib/lighthouse
@@ -62,7 +61,7 @@ This will:
 1. Install Lighthouse Beacon client
 2. install Lighthouse validator
 
-Helpful Eth2 log file monitoring to make sure everything is working. You might need to wait for a few days before everything is fully synced. Testnet will take longer to sync than the mainnet. Good news is that you have not deposited Eth yet, so just relex if you find bugs.
+Helpful Eth2 log file monitoring to make sure everything is working. You might need to wait for a few days before everything is fully synced. Testnet will take longer to sync than the mainnet. Good news is that you have not deposited Eth yet, so just relax if you find bugs.
 
 ```
 sudo journalctl -fu lighthousebeacon.service

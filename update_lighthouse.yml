@@ -1,12 +1,12 @@
 ---
 - name: Update Lighthouse
-  hosts: "{{ target }}"
+  hosts: '{{ target }}'
   become: true
   gather_facts: false
   pre_tasks:
     - name: stop beacon and validator services
       systemd:
-        name: "{{ item }}"
+        name: '{{ item }}'
         state: stopped
       changed_when: false
       loop:
@@ -19,7 +19,7 @@
   post_tasks:
     - name: restart lighthousebeacon services
       systemd:
-        name: "{{ item }}"
+        name: '{{ item }}'
         state: restarted
       changed_when: false
       loop:

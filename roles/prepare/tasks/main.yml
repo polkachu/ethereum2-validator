@@ -30,11 +30,6 @@
   when:
     - not ufw_status_result.stdout is search("9100/tcp.*ALLOW IN.*Anywhere")
 
-- name: open process_exporter port
-  command: ufw allow 9256/tcp
-  when:
-    - not ufw_status_result.stdout is search("9256/tcp.*ALLOW IN.*Anywhere")
-
 - name: enable firewall
   shell: |
     set -o pipefail
@@ -45,7 +40,7 @@
 
 - name: Creates lighthouse directory
   file:
-    path: "/var/lib/lighthouse"
+    path: '/var/lib/lighthouse'
     state: directory
     owner: ubuntu
     group: ubuntu
